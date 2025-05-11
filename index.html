@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advaith AI Agent</title>
+</head>
+<body>
+  <h2>Ask a Natural Language Question</h2>
+  <input type="text" id="question" size="60" placeholder="e.g. List students who haven't paid fees">
+  <button onclick="askQuery()">Submit</button>
+  <pre id="output"></pre>
+
+  <script>
+    async function askQuery() {
+      const question = document.getElementById('question').value;
+      const response = await fetch('http://localhost:8000/query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: question })
+      });
+      const data = await response.json();
+      document.getElementById('output').textContent =
+        'Generated SQL:\n' + data.sql + '\n\nResult:\n' +
+        (data.result ? JSON.stringify(data.result, null, 2) : data.error);
+    }
+  </script>
+</body>
+</html>
