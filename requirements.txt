@@ -1,0 +1,5 @@
+transformers
+torch
+mcp
+mysql-connector-python
+pydantic
